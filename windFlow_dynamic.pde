@@ -20,7 +20,7 @@ String windDirToCard;
 PVector[] flowField; // Array to store flow vectors
 //ArrayList<Particle> particles = new ArrayList<Particle>();
 int cols, rows;
-////////////////////////// BIG EFFECT ON PERFORMANCE VARIABLE
+////////////////////////// BIG EFFECT ON PERFORMANCE
 int numParticles = 10000;
 //////////////////////////
 Particle[] particles = new Particle[numParticles];
@@ -28,7 +28,7 @@ color bgColor = 0;
 int bgAlpha = 255; // transparency to make trails 
 color vColor = 255;
 int vWeight = 2;
-int scl = 20;  // Scale: size of each grid cell
+int scl = 40;  // Scale: size of each grid cell
 
 // movement vars
 float incr = 0.1;  // Noise step
