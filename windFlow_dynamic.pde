@@ -7,6 +7,8 @@ ideas:
 - field vectors sway to maintain dynamism
   - sway incr as diff btw gust (max speed) and speed (avg) incr
 - alpha (trails) based on air quality / overcastness
+- API error-handling to use default settings for display
+  - can just show flow line display or constantly changing vars
 
 - Let me know if you wanna make wind strength control the bias too — that could be super dynamic
   
