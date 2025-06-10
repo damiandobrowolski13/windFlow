@@ -23,14 +23,14 @@ PVector[] flowField; // Array to store flow vectors
 //ArrayList<Particle> particles = new ArrayList<Particle>();
 int cols, rows;
 ////////////////////////// BIG EFFECT ON PERFORMANCE
-int numParticles = 10000;
+int numParticles = 7000;
 //////////////////////////
 Particle[] particles = new Particle[numParticles];
 color bgColor = 0;
 int bgAlpha = 255; // transparency to make trails 
 color vColor = 255;
 int vWeight = 2;
-int scl = 40;  // Scale: size of each grid cell
+int scl = 60;  // Scale: size of each grid cell
 
 // movement vars
 float incr = 0.1;  // Noise step
@@ -41,6 +41,10 @@ float windBias = 0.7; // controls how much windDir vs. noiseAngle (0 is no wind 
 // screen adj
 float procRot = -90; // processing's degree orientation (unit circle)
 float angleOff; // variable to add to angle to send flow field vectors in dir of wind
+
+// upscaling vars
+int virtualWidth = 800;
+int virtualHeight = 500;
 
 // timer vars
 int fetchInterval = 15 * 60 * 1000;  // 15 minutes in ms
@@ -96,6 +100,8 @@ void setup() {
 }
 
 void draw() {  
+  // upscale at top of draw
+  upscale();
   // --- Check and Print Frame Rate Periodically ---
   if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
     // nf() function formats the float to show 2 decimal places, which looks cleaner
@@ -313,4 +319,13 @@ String legendTargetCornerToString(int cornerCode) {
     case 3: return "Top-Left";
     default: return "Unknown (" + cornerCode + ")";
   }
+}
+
+void upscale() {
+  // Calculate the horizontal and vertical scaling factors
+  float scaleX = (float)width / virtualWidth;
+  float scaleY = (float)height / virtualHeight;
+  
+  // Apply the scaling transformation. This must be at the top of draw().
+  scale(scaleX, scaleY);
 }
