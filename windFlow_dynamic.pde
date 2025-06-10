@@ -43,8 +43,8 @@ float procRot = -90; // processing's degree orientation (unit circle)
 float angleOff; // variable to add to angle to send flow field vectors in dir of wind
 
 // upscaling vars
-int virtualWidth = 800;
-int virtualHeight = 500;
+int virtualWidth = 1280;
+int virtualHeight = 720;
 
 // timer vars
 int fetchInterval = 15 * 60 * 1000;  // 15 minutes in ms
@@ -67,14 +67,14 @@ int legendTargetCorner = 0; // 0: Top-Right, 1: Bottom-Right, 2: Bottom-Left, 3:
 void setup() {
   //size(800, 800, P2D);  // optimize w/ OpenGL render for 2D
   fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
-  pg = createGraphics(width, height);
+  pg = createGraphics(virtualWidth, virtualHeight);
   pg.noSmooth();
   
   // Initial data fetch
   boolean initFetch = fetchWeatherData();
   
-  cols = floor((float)width / scl) + 1;  // Ensure grid covers canvas
-  rows = floor((float)height / scl) + 1;
+  cols = floor((float)virtualWidth / scl) + 1;  // Ensure grid covers canvas
+  rows = floor((float)virtualHeight / scl) + 1;
   flowField = new PVector[cols * rows];
   // Initialize PVector objects once
   for (int i = 0; i < flowField.length; i++) {
@@ -100,8 +100,6 @@ void setup() {
 }
 
 void draw() {  
-  // upscale at top of draw
-  upscale();
   // --- Check and Print Frame Rate Periodically ---
   if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
     // nf() function formats the float to show 2 decimal places, which looks cleaner
@@ -130,7 +128,7 @@ void draw() {
   pg.beginDraw();
   pg.noStroke();
   pg.fill(0, 5);  // lower = slower fading
-  pg.rect(0, 0, width, height);
+  pg.rect(0, 0, virtualWidth, virtualHeight);
 
    //// Update and display particles
   for (Particle p : particles) {
@@ -141,8 +139,11 @@ void draw() {
   } 
   pg.endDraw();
 
+  // clear main fullscreen window
+  background(0);
+
   // now draw pg onto the actual screen
-  image(pg, 0, 0);
+  image(pg, 0, 0, width, height);
   
   
   // --- BEGIN CORNER DATA LEGEND ---
@@ -319,13 +320,4 @@ String legendTargetCornerToString(int cornerCode) {
     case 3: return "Top-Left";
     default: return "Unknown (" + cornerCode + ")";
   }
-}
-
-void upscale() {
-  // Calculate the horizontal and vertical scaling factors
-  float scaleX = (float)width / virtualWidth;
-  float scaleY = (float)height / virtualHeight;
-  
-  // Apply the scaling transformation. This must be at the top of draw().
-  scale(scaleX, scaleY);
 }
