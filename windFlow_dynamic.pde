@@ -45,6 +45,8 @@ float angleOff; // variable to add to angle to send flow field vectors in dir of
 // timer vars
 int fetchInterval = 15 * 60 * 1000;  // 15 minutes in ms
 int lastFetchTime = 0;
+int frameRateCheckInterval = 2000;  // 2000ms = 2 seconds
+int lastFrameRateCheckTime = 0;     // Stores the time of the last check
 
 PGraphics pg;
 
@@ -94,7 +96,14 @@ void setup() {
 }
 
 void draw() {  
-  // println(frameRate);
+  // --- Check and Print Frame Rate Periodically ---
+  if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
+    // nf() function formats the float to show 2 decimal places, which looks cleaner
+    println("Frame Rate: " + nf(frameRate, 0, 2));
+    
+    // Reset the timer to the current time
+    lastFrameRateCheckTime = millis(); 
+  }
   
   // fetching api data
   if (millis() - lastFetchTime >= fetchInterval) {
@@ -102,7 +111,7 @@ void draw() {
     lastFetchTime = millis(); // Update the fetch time regardless of success to maintain interval
 
     if (fetchGood) {
-      printDataSnapshot(); // Call your new helper function
+      printDataSnapshot(); // Call helper function
     }
   }
   

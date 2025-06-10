@@ -31,19 +31,6 @@ boolean fetchWeatherData() {
     snow = currentWeather.getFloat("snowfall");
     clouds = currentWeather.getFloat("cloud_cover");
     
-    //println("Temperature: " + temp + " ºF");
-    //println("Feels like: " + appTemp + " ºF");
-    //println("Wind speed: " + windSpeed + " mph");
-    //println("Wind gusts: " + windGusts + " mph");
-    //println("Wind direction from: " + windDirFrom + "º");
-    //println("Wind direction to: " + windDirTo + "º");
-    //println("Relative humidity: " + relHum + "%");
-    //println("precip: " + precip + " in.");
-    //println("rain: " + rain + " in.");
-    //println("showers: " + showers + " in.");
-    //println("snow: " + snow + " in.");
-    //println("clouds: " + clouds + "% \n");
-    
     // Recalculate sketch parameters that depend on weather data
     angleOff = radians(windDirTo + procRot); // angle to offset noise is windDirTo shifted by the regular orientation of the program
     zIncr = map(windGusts - windSpeed, 0, 30, 0.0001, 0.1); // Making speed of time progression proportional to prop of wind gusts - wind speed data from API
