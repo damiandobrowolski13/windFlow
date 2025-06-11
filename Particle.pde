@@ -8,7 +8,8 @@ class Particle {
     pos = new PVector(random(width), random(height));
     vel = new PVector();
     acc = new PVector();
-    pWeight = int(random(1,7));
+    //pWeight = int(random(1,7));
+    pWeight = 1;
   }
 
   void follow(PVector[] vectors) {
