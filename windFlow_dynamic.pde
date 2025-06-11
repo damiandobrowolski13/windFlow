@@ -2,6 +2,8 @@
 
 ideas:
 
+- add DVD
+
 - temp gradient
   - based on diff btw actual temp & feels like
 - field vectors sway to maintain dynamism
@@ -103,13 +105,13 @@ void setup() {
 
 void draw() {  
   // --- Check and Print Frame Rate Periodically ---
-  if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
-    // nf() function formats the float to show 2 decimal places, which looks cleaner
-    println("Frame Rate: " + nf(frameRate, 0, 2));
+  //if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
+  //  // nf() function formats the float to show 2 decimal places, which looks cleaner
+  //  println("Frame Rate: " + nf(frameRate, 0, 2));
     
-    // Reset the timer to the current time
-    lastFrameRateCheckTime = millis(); 
-  }
+  //  // Reset the timer to the current time
+  //  lastFrameRateCheckTime = millis(); 
+  //}
   
   // fetching api data
   if (millis() - lastFetchTime >= fetchInterval) {
