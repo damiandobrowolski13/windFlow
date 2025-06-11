@@ -10,7 +10,7 @@ ideas:
 - wind strength controlling wind bias too
 - API error-handling to use default settings for display
   - can just show flow line display or constantly changing vars
-
+- color change based on time of day
   
 /*////////////
 
@@ -30,7 +30,7 @@ color bgColor = 0;
 int bgAlpha = 255; // transparency to make trails 
 color vColor = 255;
 int vWeight = 2;
-int scl = 60;  // Scale: size of each grid cell
+int scl = 40;  // Scale: size of each grid cell
 
 // movement vars
 float incr = 0.1;  // Noise step
@@ -65,8 +65,8 @@ int legendTargetCorner = 0; // 0: Top-Right, 1: Bottom-Right, 2: Bottom-Left, 3:
 // ------------------------------------
 
 void setup() {
-  //size(800, 800, P2D);  // optimize w/ OpenGL render for 2D
-  fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
+  size(800, 800, P2D);  // optimize w/ OpenGL render for 2D
+  //fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
   pg = createGraphics(virtualWidth, virtualHeight);
   pg.noSmooth();
   
