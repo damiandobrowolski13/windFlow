@@ -23,14 +23,14 @@ PVector[] flowField; // Array to store flow vectors
 //ArrayList<Particle> particles = new ArrayList<Particle>();
 int cols, rows;
 ////////////////////////// BIG EFFECT ON PERFORMANCE
-int numParticles = 7000;
+int numParticles = 12000;
 //////////////////////////
 Particle[] particles = new Particle[numParticles];
 color bgColor = 0;
-int bgAlpha = 255; // transparency to make trails 
+int bgAlpha = 10; // transparency to make trails 
 color vColor = 255;
 int vWeight = 2;
-int scl = 40;  // Scale: size of each grid cell
+int scl = 60;  // Scale: size of each grid cell
 
 // movement vars
 float incr = 0.1;  // Noise step
@@ -101,13 +101,13 @@ void setup() {
 
 void draw() {  
   // --- Check and Print Frame Rate Periodically ---
-  //if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
-  //  // nf() function formats the float to show 2 decimal places, which looks cleaner
-  //  println("Frame Rate: " + nf(frameRate, 0, 2));
+  if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
+    // nf() function formats the float to show 2 decimal places, which looks cleaner
+    println("Frame Rate: " + nf(frameRate, 0, 2));
     
-  //  // Reset the timer to the current time
-  //  lastFrameRateCheckTime = millis(); 
-  //}
+    // Reset the timer to the current time
+    lastFrameRateCheckTime = millis(); 
+  }
   
   // fetching api data
   if (millis() - lastFetchTime >= fetchInterval) {
@@ -158,8 +158,9 @@ void draw() {
   String line2 = "Wind gusts: " + nf(windGusts, 0, 1) + " mph";
   String line3 = "Wind direction (to): " + windDirToCard + " (" + nf(windDirTo, 0, 0) + "º" + ")";
   String line4 = "Temperature: " + nf(temp, 0, 0) + " ºF";
+  String line5 = "Feels like: " + nf(appTemp, 0, 0) + " ºF";
   
-  String[] legendLines = {line1, line2, line3, line4};
+  String[] legendLines = {line1, line2, line3, line4, line5};
   int numLines = legendLines.length;
   
   // 3. Determine Legend Box Dimensions (legendBoxW and legendBoxH)
