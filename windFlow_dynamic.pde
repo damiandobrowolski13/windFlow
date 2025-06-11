@@ -65,8 +65,8 @@ int legendTargetCorner = 0; // 0: Top-Right, 1: Bottom-Right, 2: Bottom-Left, 3:
 // ------------------------------------
 
 void setup() {
-  size(800, 800, P2D);  // optimize w/ OpenGL render for 2D
-  //fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
+  //size(800, 800, P2D);  // optimize w/ OpenGL render for 2D
+  fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
   pg = createGraphics(virtualWidth, virtualHeight);
   pg.noSmooth();
   
