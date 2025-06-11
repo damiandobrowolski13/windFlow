@@ -44,6 +44,12 @@ boolean fetchWeatherData() {
             }
         }
     }
+    // update logo speed
+    if (dvd != null && particles.length > 0 && particles[0] != null) {
+      float updatedLogoSpeed = particles[0].maxSpeed * 0.5; // Use same multiplier
+      dvd.updateSpeed(updatedLogoSpeed);
+    }
+    
     return true;
   } else {
     println("Error fetching weather data.");

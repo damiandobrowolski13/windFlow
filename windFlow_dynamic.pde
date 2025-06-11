@@ -2,7 +2,8 @@
 
 ideas:
 
-- add DVD
+- DVD logo celebration on corner hit
+- grass effect w/ fixed vectors
 
 - temp gradient
   - based on diff btw actual temp & feels like
@@ -55,6 +56,7 @@ int frameRateCheckInterval = 2000;  // 2000ms = 2 seconds
 int lastFrameRateCheckTime = 0;     // Stores the time of the last check
 
 PGraphics pg;
+DVDlogo dvd;
 
 // --- Legend Configuration Variables ---
 float LEGEND_TEXT_SIZE = 25;
@@ -73,6 +75,15 @@ void setup() {
   fullScreen(P2D); // run fullscreen w/ OpenGL render for 2D
   pg = createGraphics(virtualWidth, virtualHeight);
   pg.noSmooth();
+  
+  dvd = new DVDlogo(pg);
+  
+  // init logo speed
+  if (particles.length > 0 && particles[0] != null) {
+    // base logo speed on particles' maxSpeed, scaled by a factor
+    float initialLogoSpeed = particles[0].maxSpeed * 0.5;
+    dvd.updateSpeed(initialLogoSpeed);
+  }
   
   // Initial data fetch
   boolean initFetch = fetchWeatherData();
@@ -141,6 +152,10 @@ void draw() {
     p.edges();
     p.show(pg);
   } 
+  
+  dvd.update();   
+  dvd.display(pg);
+  
   pg.endDraw();
 
   // clear main fullscreen window
