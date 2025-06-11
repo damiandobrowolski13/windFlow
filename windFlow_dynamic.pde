@@ -101,13 +101,13 @@ void setup() {
 
 void draw() {  
   // --- Check and Print Frame Rate Periodically ---
-  if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
-    // nf() function formats the float to show 2 decimal places, which looks cleaner
-    println("Frame Rate: " + nf(frameRate, 0, 2));
+  //if (millis() - lastFrameRateCheckTime > frameRateCheckInterval) {
+  //  // nf() function formats the float to show 2 decimal places, which looks cleaner
+  //  println("Frame Rate: " + nf(frameRate, 0, 2));
     
-    // Reset the timer to the current time
-    lastFrameRateCheckTime = millis(); 
-  }
+  //  // Reset the timer to the current time
+  //  lastFrameRateCheckTime = millis(); 
+  //}
   
   // fetching api data
   if (millis() - lastFetchTime >= fetchInterval) {
@@ -297,8 +297,9 @@ void printDataSnapshot() {
   }
   println("---");
 
-  // --- Derived Sketch Variables ---
-  println("Derived Sketch Variables:");
+  // --- Derived Sketch Variables & Performance ---
+  println("Derived Sketch Variables & Performance:");
+  println("  Frame Rate (at time of fetch): " + nf(frameRate, 0, 2) + " FPS"); 
   println("  Flow Field Angle Offset: " + nf(degrees(angleOff), 0, 1) + "º"); // Convert radians back to degrees for printing
   println("  Flow Field Z Increment:  " + nf(zIncr, 0, 5));     // Animation speed of flow field
   println("  Legend Target Corner:    " + legendTargetCornerToString(legendTargetCorner)); // Readable corner
