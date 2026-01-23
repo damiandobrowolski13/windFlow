@@ -1,75 +1,67 @@
 class DVDlogo {
-
-  PVector pos;         // Position vector
-  PVector vel;         // Velocity vector
-
+  PVector pos;
+  PVector vel;
   String logoText = "DVD";
-  float logoSize = 50; // The font size of the logo
-  float w, h;          // The width and height of the text for collision
-
-  color currentTint;   // The current color of the logo
+  float logoSize = 50;
+  float w, h;
+  color currentTint;
 
   DVDlogo(PGraphics pg) {
-    // Start the logo in the center of the VIRTUAL canvas
     pos = new PVector(virtualWidth / 2, virtualHeight / 2);
-
-    // Give it a random starting direction and speed
-    vel = PVector.random2D(); // A random direction vector of length 1
-
-    // Measure the text using the PGraphics context it will be drawn on
+    vel = PVector.random2D();
     pg.beginDraw();
     pg.textSize(logoSize);
     w = pg.textWidth(logoText);
-    h = pg.textAscent(); // textAscent is more accurate for vertical collision
+    h = pg.textAscent();
     pg.endDraw();
-
-    // Pick a random starting color
     changeColor();
   }
 
-  // update() - moves the logo and checks for bounces
   void update() {
-    pos.add(vel); // Move the logo
+    pos.add(vel);
     checkBounce();
   }
 
-  // checkBounce() - inverts velocity when an edge is hit
   void checkBounce() {
-    // Check for collision with left or right wall
+    float margin = 10.0; // 10-pixel leniency
+    boolean hitX = false;
+    boolean hitY = false;
+
+    // Check X
     if (pos.x <= 0 || pos.x + w >= virtualWidth) {
-      vel.x *= -1; // Invert horizontal velocity
+      vel.x *= -1;
+      hitX = true;
       changeColor();
     }
-    // Check for collision with top or bottom wall
+    // Check Y
     if (pos.y - h <= 0 || pos.y >= virtualHeight) {
-      vel.y *= -1; // Invert vertical velocity
+      vel.y *= -1;
+      hitY = true;
       changeColor();
+    }
+
+    // CELEBRATION with a tiny bit of forgiveness
+    // If it hit one axis and is within 'margin' pixels of the other
+    if (hitX && (pos.y - h <= margin || pos.y >= virtualHeight - margin)) {
+       triggerConfetti(pos.x + w/2, pos.y - h/2);
+    } else if (hitY && (pos.x <= margin || pos.x + w >= virtualWidth - margin)) {
+       triggerConfetti(pos.x + w/2, pos.y - h/2);
     }
   }
 
-  // display() - draws the logo on the screen
   void display(PGraphics pg) {
     pg.fill(currentTint);
     pg.textSize(logoSize);
-    pg.textAlign(LEFT, TOP); // Align from the top-left for easier calculations
-    // We draw at pos.y - h because the text's origin is its baseline
+    pg.textAlign(LEFT, TOP);
     pg.text(logoText, pos.x, pos.y - h);
   }
 
-  // changeColor() - picks a new random color
   void changeColor() {
-    currentTint = color(random(0, 255), random(0, 255), random(0, 255));
+    currentTint = color(random(100, 255), random(100, 255), random(100, 255));
   }
-  
-   void updateSpeed(float newSpeed) {
-    // change the vector's magnitude
-    // without changing its direction.
-  
-    // First, normalize the vector
+
+  void updateSpeed(float newSpeed) {
     vel.normalize();
-  
-    // Then, scale it by the new speed
-    // Add a minimum speed to ensure it never stops completely
-    vel.mult(max(0.5, newSpeed)); // Use max() to prevent speed from being 0
+    vel.mult(max(0.5, newSpeed));
   }
 }
