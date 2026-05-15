@@ -207,7 +207,7 @@ void drawSignature() {
   pushMatrix();
     textSize(14);
     textAlign(RIGHT, BOTTOM);
-    fill(255, 100); 
+    fill(255); 
     String signature = "by Damian Vincent Dobrowolski [DVD]";
     float sigX = width - 20;
     float sigY = height - 15;
